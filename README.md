@@ -1,5 +1,5 @@
-# TeamSangre_GGJ26
-Global/Lima Gane Jam entry from Team Sangre
+# TeamSalchipapa_GGJ26
+Global/Lima Gane Jam entry from Team Salchipapa
 
 Testing Repo Stuff for discord
 
