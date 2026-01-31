@@ -48,9 +48,9 @@
     <Analyzer Include="E:\03-Game Engines\Unity\Unity Editor\6000.0.66f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Player\P_Movement.cs" />
-    <Compile Include="Assets\Player\P_Sword.cs" />
+    <Compile Include="Assets\Script\Player\P_Movement.cs" />
     <Compile Include="Assets\Script\EnemyAIFollow.cs" />
+    <Compile Include="Assets\Script\Player\P_Sword.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
