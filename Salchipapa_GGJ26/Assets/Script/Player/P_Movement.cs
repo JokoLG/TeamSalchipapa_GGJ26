@@ -21,9 +21,13 @@ public class P_Movement : MonoBehaviour
 
     private FacingDirection lastPressed = FacingDirection.Right;
 
+    private Animator animator;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -57,6 +61,8 @@ public class P_Movement : MonoBehaviour
         {
             sword?.TryAttack();
         }
+        UpdateAnimator();
+
     }
 
     void FixedUpdate()
@@ -116,4 +122,21 @@ public class P_Movement : MonoBehaviour
             case FacingDirection.Down:  weaponPivot.localRotation = Quaternion.Euler(0, 0, 270); break;
         }
     }
+
+    void UpdateAnimator()
+{
+    if (animator == null) return;
+
+    if (isMoving)
+    {
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", 1f);
+    }
+    else
+    {
+        animator.SetFloat("Speed", 0f);
+    }
+}
+
 }
