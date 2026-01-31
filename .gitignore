@@ -1,3 +1,28 @@
-Salchipapa_GGJ26/Library
-Salchipapa_GGJ26/Logs
-Salchipapa_GGJ26/Temp
+# --- Reglas para el proyecto Salchipapa_GGJ26 ---
+
+Salchipapa_GGJ26/[Ll]ibrary/
+Salchipapa_GGJ26/[Tt]emp/
+Salchipapa_GGJ26/[Oo]bj/
+Salchipapa_GGJ26/[Bb]uild/
+Salchipapa_GGJ26/[Bb]uilds/
+Salchipapa_GGJ26/[Ll]ogs/
+Salchipapa_GGJ26/[Uu]ser[Ss]ettings/
+Salchipapa_GGJ26/[Mm]emoryCaptures/
+Salchipapa_GGJ26/[Rr]ecordings/
+
+# Archivos de solución y caché (estos suelen estar en la raíz)
+.vs/
+.gradle/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pdb
+*.opendb
+*.VC.db
+
+# Ignorar ejecutables y paquetes
+*.apk
+*.aab
+*.unitypackage
