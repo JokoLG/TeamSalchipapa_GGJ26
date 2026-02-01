@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: "M\xC1SCARA DE LA BRUJA"
   m_EditorClassIdentifier: 
   lineas:
-  - speakerName: ANUNCIADOR
-    dialogueText: "\xA1Qu\xE9 misterio! \xA1Cu\xE1nta magia! \xA1Damas y caballeros!
-      \xA1Directo del camino amarillo!: \xA1La bruja! "
+  - dialogueText: "\xA1Damas y caballeros\u2026 Ha llegado el show que han estado
+      esperando! \xA1Con ustedes\u2026el \xFAnico, el inigualable\u2026Maniqu\xED-! "
+    fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - dialogueText: "\xBFPodr\xE1 nuestro \u201Ch\xE9roe\u201D llegar al estrellato?
+      \xBFQu\xE9 creen ustedes? \xBFFracasar\xE1 en el intento?  "
     fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
