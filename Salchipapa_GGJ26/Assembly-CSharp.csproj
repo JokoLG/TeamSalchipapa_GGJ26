@@ -54,6 +54,7 @@
     <Compile Include="Assets\Script\Controllers\RoomGate.cs" />
     <Compile Include="Assets\Script\Player\FarolTest.cs" />
     <Compile Include="Assets\Script\Player\Weapons\P_Sword.cs" />
+    <Compile Include="Assets\Script\Controllers\CameraController.cs" />
     <Compile Include="Assets\Script\Player\P_Movement.cs" />
     <Compile Include="Assets\Script\Managers\BGMManager.cs" />
     <Compile Include="Assets\Script\Player\P_SoundHandler.cs" />
