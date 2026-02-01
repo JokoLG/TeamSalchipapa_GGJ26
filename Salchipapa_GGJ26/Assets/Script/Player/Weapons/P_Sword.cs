@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class P_Sword : MonoBehaviour
@@ -14,8 +15,14 @@ public class P_Sword : MonoBehaviour
     public Color normalColor = Color.white;
     public Color flashColor = Color.magenta;
 
-    [Header("Hitbox (optional)")]
+    [Header("Hitbox")]
     public Collider2D hitboxCollider;
+
+    [Header("Combat")]
+    [SerializeField] private float swordKnockback = 0.4f;
+
+    [Tooltip("Current facing direction of the player")]
+    [SerializeField] public FacingDirection playerFacing;
 
     private SpriteRenderer swordHitbox;
     private float timer = 0f;
@@ -30,6 +37,9 @@ public class P_Sword : MonoBehaviour
     {
         swordHitbox = GetComponent<SpriteRenderer>();
         swordHitbox.color = normalColor;
+
+        hitboxCollider = GetComponent<BoxCollider2D>();
+        hitboxCollider.enabled = false;
     }
 
     void Update()
@@ -72,7 +82,7 @@ public class P_Sword : MonoBehaviour
         timer = 0f;
 
         swordHitbox.color = flashColor;
-        if (hitboxCollider != null) hitboxCollider.enabled = true;
+        hitboxCollider.enabled = true;
     }
 
     void EndAttack()
@@ -82,12 +92,33 @@ public class P_Sword : MonoBehaviour
         timer = 0f;
 
         swordHitbox.color = normalColor;
-        if (hitboxCollider != null) hitboxCollider.enabled = false;
+        hitboxCollider.enabled = false;
     }
 
     void EndCooldown()
     {
         isOnCooldown = false;
         timer = 0f;
+    }
+
+    // ---------------- HIT DETECTION ----------------
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Only hit while the sword is actually active
+        if (!isAttacking) return;
+
+        EnemyMovement_Free enemy = other.GetComponent<EnemyMovement_Free>();
+        if (enemy == null) return;
+
+        enemy.HitSword(swordKnockback, playerFacing);
+    }
+
+    // ---------------- EXTERNAL SETTERS ----------------
+
+    // Call this from your player movement when facing changes
+    public void SetFacing(FacingDirection dir)
+    {
+        playerFacing = dir;
     }
 }

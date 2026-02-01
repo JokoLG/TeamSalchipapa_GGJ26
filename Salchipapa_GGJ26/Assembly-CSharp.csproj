@@ -49,16 +49,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Data\DialogueData.cs" />
+    <Compile Include="Assets\Script\Player\FarolTest.cs" />
+    <Compile Include="Assets\Script\Player\Weapons\P_Sword.cs" />
     <Compile Include="Assets\Script\Player\P_Movement.cs" />
     <Compile Include="Assets\Script\Managers\BGMManager.cs" />
+    <Compile Include="Assets\Script\Player\P_SoundHandler.cs" />
     <Compile Include="Assets\Script\Data\MusicData.cs" />
     <Compile Include="Assets\Script\Controllers\Dialogue Controller.cs" />
     <Compile Include="Assets\Script\EnemyAIFollow.cs" />
     <Compile Include="Assets\Enemy\EnemyMovement_Free.cs" />
     <Compile Include="Assets\Script\Controllers\Menu Controller.cs" />
-    <Compile Include="Assets\Script\Player\P_Sword.cs" />
+    <Compile Include="Assets\Script\Player\Weapons\Fireball.cs" />
+    <Compile Include="Assets\Enemy\EnemyCiclope.cs" />
     <Compile Include="Assets\Enemy\CollisionSensor2D.cs" />
     <Compile Include="Assets\Script\Managers\TimelineManager.cs" />
+    <Compile Include="Assets\Script\Player\Weapons\FBSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
