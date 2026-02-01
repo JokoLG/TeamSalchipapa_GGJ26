@@ -26,6 +26,8 @@ public class P_SoundHandler : MonoBehaviour
 
     void Awake()
     {
+        if (src == null) src = GetComponent<AudioSource>();
+
         src.playOnAwake = false;
         src.loop = false;
 
