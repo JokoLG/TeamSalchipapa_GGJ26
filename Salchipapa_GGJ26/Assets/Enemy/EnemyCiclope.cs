@@ -34,14 +34,10 @@ public class EnemyCiclope : MonoBehaviour
         {
             direccion = Vector2.zero;
         }
-        
+    }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + direccion * velocidadMovimiento * Time.fixedDeltaTime);
     }
-
 }
-
-}
-

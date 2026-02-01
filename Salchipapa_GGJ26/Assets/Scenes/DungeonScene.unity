@@ -10418,8 +10418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1393918187}
-  rangoPersecusion: 5
-  velocidadMovimiento: 2
+  rangoPersecusion: 6
+  velocidadMovimiento: 5
 --- !u!1 &2012921599
 GameObject:
   m_ObjectHideFlags: 0
