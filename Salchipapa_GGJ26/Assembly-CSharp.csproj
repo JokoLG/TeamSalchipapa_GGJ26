@@ -49,12 +49,15 @@
     <Analyzer Include="D:\Unity\Editor\6000.0.66f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Data\DialogueData.cs" />
     <Compile Include="Assets\Script\Player\P_Movement.cs" />
     <Compile Include="Assets\Script\Managers\BGMManager.cs" />
     <Compile Include="Assets\Script\Data\MusicData.cs" />
+    <Compile Include="Assets\Script\Controllers\Dialogue Controller.cs" />
     <Compile Include="Assets\Script\EnemyAIFollow.cs" />
     <Compile Include="Assets\Script\Controllers\Menu Controller.cs" />
     <Compile Include="Assets\Script\Player\P_Sword.cs" />
+    <Compile Include="Assets\Script\Managers\TimelineManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

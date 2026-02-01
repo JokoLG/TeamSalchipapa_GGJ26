@@ -15,7 +15,6 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    // Función para el botón "Jugar"
     public void OnClickPlay()
     {
         SceneManager.LoadScene("Scena_Figth");
