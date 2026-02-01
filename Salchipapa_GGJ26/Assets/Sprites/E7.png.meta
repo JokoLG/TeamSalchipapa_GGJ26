@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a807acf2d7c34cb40b05106ae064e236
+guid: b0e685e0cbb9cff43ac820cba65740da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3355683534988425810
-    second: Escenario9_0
+      213: 8277069185879280046
+    second: E7_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escenario9_0
+      name: E7_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 794
-        height: 449
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 25abc995568c19e20800000000000000
-      internalID: 3355683534988425810
+      spriteID: ea98aad129e0ed270800000000000000
+      internalID: 8277069185879280046
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escenario9_0: 3355683534988425810
+      E7_0: 8277069185879280046
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

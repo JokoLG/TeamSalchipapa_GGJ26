@@ -41,4 +41,3 @@ public class EnemyCiclope : MonoBehaviour
         rb.MovePosition(rb.position + direccion * velocidadMovimiento * Time.fixedDeltaTime);
     }
 }
-

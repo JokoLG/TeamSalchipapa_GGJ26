@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bde67b470d3f7704e99fd6cb269ed9f0
+guid: 5aec06659fc850644b8afb4efa8184bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3738722486753725114
-    second: Escenario6_0
+      213: 155961676854153476
+    second: E0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 26
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escenario6_0
+      name: E0_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 794
-        height: 447
+        width: 802
+        height: 448
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aba88b80b4c92e330800000000000000
-      internalID: 3738722486753725114
+      spriteID: 401577b91561a2200800000000000000
+      internalID: 155961676854153476
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escenario6_0: 3738722486753725114
+      E0_0: 155961676854153476
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
