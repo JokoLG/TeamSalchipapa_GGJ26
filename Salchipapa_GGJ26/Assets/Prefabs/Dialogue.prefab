@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aeb8e5d448401a49bcab80f820bfbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueData: {fileID: 11400000, guid: 86a2d0fe265afc64bb2496628825a22d, type: 2}
+  dialogueData: {fileID: 0}
   typingSpeed: 0.02
 --- !u!1 &8180096974727921092
 GameObject:
