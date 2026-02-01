@@ -116,6 +116,7 @@ public class BGMManager : MonoBehaviour
             {
                 float exceso = bgmSource.time - currentMusicData.LoopEnd;
                 bgmSource.time = currentMusicData.LoopStart + exceso;
+                Debug.Log($"Bucle BGM: {currentMusicData.clip.name} desde {currentMusicData.LoopStart}s");
             }
         }
     }
