@@ -17,7 +17,7 @@ public class MenuController : MonoBehaviour
 
     public void OnClickPlay()
     {
-        SceneManager.LoadScene("Scena_Figth");
+        SceneManager.LoadScene("Stage1");
     }
 
     public void OnClickExit()

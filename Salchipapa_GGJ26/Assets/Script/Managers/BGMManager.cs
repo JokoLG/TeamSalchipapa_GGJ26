@@ -97,6 +97,17 @@ public class BGMManager : MonoBehaviour
         }
     }
 
+    public void DetenerYCambiar(MusicData nuevaMusica, float fadeCustom = -1f)
+    {
+        if (nuevaMusica == null) return;
+
+        // Si ya está sonando esa canción, no hacemos nada
+        if (currentMusicData != null && currentMusicData.clip == nuevaMusica.clip) return;
+
+        // Usamos el Fade que ya programaste para una transición suave
+        CambiarBGM(nuevaMusica, fadeCustom);
+    }
+
     private void Update()
     {
         if (bgmSource.isPlaying && currentMusicData != null && currentMusicData.loop)
@@ -105,6 +116,7 @@ public class BGMManager : MonoBehaviour
             {
                 float exceso = bgmSource.time - currentMusicData.LoopEnd;
                 bgmSource.time = currentMusicData.LoopStart + exceso;
+                Debug.Log($"Bucle BGM: {currentMusicData.clip.name} desde {currentMusicData.LoopStart}s");
             }
         }
     }

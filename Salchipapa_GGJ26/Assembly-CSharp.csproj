@@ -50,13 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Data\DialogueData.cs" />
+    <Compile Include="Assets\Script\Controllers\Spotlight.cs" />
+    <Compile Include="Assets\Script\Controllers\RoomGate.cs" />
     <Compile Include="Assets\Script\Player\FarolTest.cs" />
     <Compile Include="Assets\Script\Player\Weapons\P_Sword.cs" />
+    <Compile Include="Assets\Script\Controllers\CameraController.cs" />
     <Compile Include="Assets\Script\Player\P_Movement.cs" />
     <Compile Include="Assets\Script\Managers\BGMManager.cs" />
     <Compile Include="Assets\Script\Player\P_SoundHandler.cs" />
     <Compile Include="Assets\Script\Data\MusicData.cs" />
     <Compile Include="Assets\Script\Controllers\Dialogue Controller.cs" />
+    <Compile Include="Assets\Script\Managers\LevelManager.cs" />
+    <Compile Include="Assets\Script\Triggers\CamTrigger.cs" />
     <Compile Include="Assets\Script\EnemyAIFollow.cs" />
     <Compile Include="Assets\Enemy\EnemyMovement_Free.cs" />
     <Compile Include="Assets\Script\Controllers\Menu Controller.cs" />
@@ -1236,6 +1241,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Splines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.2D.Aseprite.Common">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Aseprite.Common.dll</HintPath>
       <Private>False</Private>
@@ -1246,10 +1255,6 @@
     </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Splines.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.Editor">
