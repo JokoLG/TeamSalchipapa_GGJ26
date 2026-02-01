@@ -2,15 +2,43 @@ using UnityEngine;
 
 public class EnemyCiclope : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Transform player;
+
+    [Header("Movimiento")]
+    public float rangoPersecusion = 5f;
+    public float velocidadMovimiento = 2f;
+
+    private Rigidbody2D rb;
+    private Vector2 direccion;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        float distancia = Vector2.Distance(transform.position, player.position);
+
+        if (distancia <= rangoPersecusion)
+        {
+            Vector2 diff = player.position - transform.position;
+
+            
+            if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+                direccion = new Vector2(Mathf.Sign(diff.x), 0);
+            else
+                direccion = new Vector2(0, Mathf.Sign(diff.y));
+        }
+        else
+        {
+            direccion = Vector2.zero;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + direccion * velocidadMovimiento * Time.fixedDeltaTime);
     }
 }
+
