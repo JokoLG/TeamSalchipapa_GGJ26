@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5aec06659fc850644b8afb4efa8184bd
+guid: f81bcb665b704b54b93fe6158163424d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 155961676854153476
-    second: E0_0
+      213: -6702462876973517904
+    second: lampara_on_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: E0_0
+      name: lampara_on_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 802
-        height: 448
+        x: 132
+        y: 7
+        width: 218
+        height: 486
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 401577b91561a2200800000000000000
-      internalID: 155961676854153476
+      spriteID: 0b330c946811cf2a0800000000000000
+      internalID: -6702462876973517904
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      E0_0: 155961676854153476
+      lampara_on_0: -6702462876973517904
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

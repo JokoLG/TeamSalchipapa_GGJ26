@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5aec06659fc850644b8afb4efa8184bd
+guid: 87a224f2af59efe48923e06f36b417ad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 155961676854153476
-    second: E0_0
+      213: -8307801862036840720
+    second: IMG_6654_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,23 +113,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: E0_0
+      name: IMG_6654_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 802
-        height: 448
+        x: 196
+        y: 759
+        width: 549
+        height: 900
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 401577b91561a2200800000000000000
-      internalID: 155961676854153476
+      spriteID: 0fe17fc1932c4bc80800000000000000
+      internalID: -8307801862036840720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_6654_1
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 773
+        width: 580
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a457a3dc708dd243874c5f9ceaebd5f
+      internalID: -243209196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_6654_2
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 762
+        width: 577
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96fff158e85ebd94882604226fc0eb38
+      internalID: 1465692637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_6654_3
+      rect:
+        serializedVersion: 2
+        x: 2180
+        y: 756
+        width: 580
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cea3df89544e636428124c560c8a0239
+      internalID: 102892411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_6654_4
+      rect:
+        serializedVersion: 2
+        x: 2516
+        y: 759
+        width: 580
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 802d2e6728f58da479baaa5a6e7feba1
+      internalID: 677138071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_6654_5
+      rect:
+        serializedVersion: 2
+        x: 3096
+        y: 759
+        width: 580
+        height: 900
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd900575e966af14bb5915f64500c562
+      internalID: 1556248980
       vertices: []
       indices: 
       edges: []
@@ -138,7 +248,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d4e462cb584945e468830a86de1fc14f
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +258,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      E0_0: 155961676854153476
+      IMG_6654_0: -8307801862036840720
+      IMG_6654_1: -243209196
+      IMG_6654_2: 1465692637
+      IMG_6654_3: 102892411
+      IMG_6654_4: 677138071
+      IMG_6654_5: 1556248980
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
