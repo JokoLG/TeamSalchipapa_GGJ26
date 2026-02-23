@@ -119,10 +119,4 @@ public class P_SharkRush : MonoBehaviour
     {
         StopRushAndRecover();
     }
-
-    // Optional: if you use triggers for walls/hitboxes, also stop on trigger
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        StopRushAndRecover();
-    }
 }

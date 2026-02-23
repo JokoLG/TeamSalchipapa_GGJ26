@@ -114,20 +114,17 @@ public class P_Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J) && hasOdyMask) {
             weapon = MaskWeapon.Sword;
-            soundPlayer.Play("WitchFireBall", 1f);
-            soundPlayer.Play("WitchFireBall", 1f);
+            soundPlayer.Play("SwitchWeapon", 1f);
             Debug.Log($"Weapon: {weapon}");
         }
         if (Input.GetKeyDown(KeyCode.L) && hasSharkMask) {
            weapon = MaskWeapon.Shark;
-            soundPlayer.Play("WitchFireBall", 1f);
-            soundPlayer.Play("WitchFireBall", 1f);
+            soundPlayer.Play("SwitchWeapon", 1f);
             Debug.Log($"Weapon: {weapon}");
         }
         if (Input.GetKeyDown(KeyCode.K) && hasWitchMask) {
             weapon = MaskWeapon.Fireball;
-            soundPlayer.Play("WitchFireBall", 1f);
-            soundPlayer.Play("WitchFireBall", 1f);
+            soundPlayer.Play("SwitchWeapon", 1f);
             Debug.Log($"Weapon: {weapon}");
         }
     }

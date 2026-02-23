@@ -10,7 +10,7 @@ public class P_SoundHandler : MonoBehaviour
     [Header("Sound Effects")]
     [Header("└─General")]
     public AudioClip Walk;
-    public AudioClip Hit_1, Hit_2, Death;
+    public AudioClip Hit_1, Hit_2, Death, SwitchWeapon;
     [Header("└─Odysseus")]
     public AudioClip OdyHit_1;
     public AudioClip OdyHit_2, OdyDeath, OdySlash;
@@ -32,13 +32,13 @@ public class P_SoundHandler : MonoBehaviour
         srcLoop.playOnAwake = false;
         srcLoop.loop = true;
 
-        // Build lookup table once
         sfx = new Dictionary<string, AudioClip>()
         {
             { "Walk", Walk },
             { "Hit_1", Hit_1 },
             { "Hit_2", Hit_2 },
             { "Death", Death },
+            { "SwitchWeapon", SwitchWeapon },
 
             { "OdyHit_1", OdyHit_1 },
             { "OdyHit_2", OdyHit_2 },
@@ -63,7 +63,6 @@ public class P_SoundHandler : MonoBehaviour
 
     public void Play(string id, float volume = 1f)
     {
-        Debug.Log($"SFX: {id}");
         if (!sfx.TryGetValue(id, out AudioClip clip) || clip == null)
         {
             Debug.LogWarning($"SFX not found: {id}");
