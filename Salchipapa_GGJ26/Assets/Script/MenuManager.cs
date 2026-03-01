@@ -5,7 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public void GameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("SceneBlack");
     }
 
     public void CreditsScene()

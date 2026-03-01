@@ -66,14 +66,18 @@
     <Compile Include="Assets\Player\P_Movement.cs" />
     <Compile Include="Assets\Player\Weapons\P_Sword.cs" />
     <Compile Include="Assets\Script\MenuManager.cs" />
+    <Compile Include="Assets\Script\DialogTrigger.cs" />
     <Compile Include="Assets\Player\P_SoundHandler.cs" />
+    <Compile Include="Assets\Script\Dialog.cs" />
     <Compile Include="Assets\Player\Weapons\FBSpawner.cs" />
+    <Compile Include="Assets\Script\DialogEvent.cs" />
     <Compile Include="Assets\Enemies\EnemyMovement_Free.cs" />
     <Compile Include="Assets\Levels\Puzzles\RoomGate.cs" />
     <Compile Include="Assets\Script\SceneLoader.cs" />
     <Compile Include="Assets\Levels\Puzzles\Spotlight.cs" />
     <Compile Include="Assets\BGM\BGM_Manager.cs" />
     <Compile Include="Assets\Player\Weapons\Fireball.cs" />
+    <Compile Include="Assets\Script\DialogGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Settings\TextMesh Pro\Shaders\TMPro.cginc" />
