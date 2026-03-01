@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour
 {
-    [Header("Referencias")]
-    public DialogEvent dialogEvent;
+    [TextArea(3, 6)]
+    public string message;
+
+    public DialogManager dialogueManager;
 
     private bool hasTriggered = false;
 
@@ -11,11 +13,9 @@ public class DialogTrigger : MonoBehaviour
     {
         if (hasTriggered) return;
 
-        if (other.GetComponent<MonoBehaviour>() != null) // Detecta cualquier objeto que tenga scripts
-        {
-            hasTriggered = true;
-            dialogEvent.StartDialogue();
-        }
+        hasTriggered = true;
+        dialogueManager.StartDialogue(message);
     }
 }
+
 

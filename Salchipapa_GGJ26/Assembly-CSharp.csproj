@@ -78,6 +78,7 @@
     <Compile Include="Assets\BGM\BGM_Manager.cs" />
     <Compile Include="Assets\Player\Weapons\Fireball.cs" />
     <Compile Include="Assets\Script\DialogGame.cs" />
+    <Compile Include="Assets\Script\DialogManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Settings\TextMesh Pro\Shaders\TMPro.cginc" />
