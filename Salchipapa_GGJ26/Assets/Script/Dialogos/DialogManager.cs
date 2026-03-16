@@ -1,24 +1,30 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
     public GameObject dialogueBox;
     public TextMeshProUGUI dialogueText;
     public MonoBehaviour playerMovementScript;
-
+    public Image backgroundImage; 
     public float typingSpeed = 0.05f;
 
     private bool isTyping = false;
     private bool finished = false;
     private string currentMessage;
 
-    public void StartDialogue(string message)
+    public void StartDialogue(string message, Color bgColor, Color txtColor)
     {
         currentMessage = message;
+
+        backgroundImage.color = bgColor;
+        dialogueText.color = txtColor;
+
         playerMovementScript.enabled = false;
         dialogueBox.SetActive(true);
+
         StartCoroutine(TypeText());
     }
 

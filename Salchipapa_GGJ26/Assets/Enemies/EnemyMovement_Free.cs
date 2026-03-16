@@ -6,16 +6,15 @@ public class EnemyMovement_Free : MonoBehaviour
     [Header("Targets")]
     [SerializeField] private Transform[] playerObjectives = new Transform[4];
 
-    [Header("Player (for facing when stopped)")]
+    [Header("Player")]
     [SerializeField] private Transform player;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2.5f;
     [SerializeField] private float arriveDistance = 0.15f;
 
-    [Header("Facing")]
-    [Tooltip("If true, also face the objective while moving (cardinal).")]
-    [SerializeField] private bool faceMoveDirectionWhileMoving = true;
+    [Header("Attack")]
+    [SerializeField] private float attackDistance = 1.2f;
 
     [Header("Knockback")]
     [SerializeField] private float knockbackDuration = 0.08f;
@@ -23,47 +22,69 @@ public class EnemyMovement_Free : MonoBehaviour
     [Header("Invincibility")]
     [SerializeField] private float iFramesDuration = 0.25f;
 
-    [Header("Speed Recovery After Hit")]
-    [Tooltip("Speed multiplier immediately after knockback ends (0.1 = 10%).")]
+    [Header("Speed Recovery")]
     [Range(0f, 1f)]
     [SerializeField] private float postHitSpeedMultiplier = 0.10f;
-
-    [Tooltip("How long it takes to ramp back to normal speed after knockback ends.")]
     [SerializeField] private float speedRecoverTime = 0.20f;
 
     private Transform targetObjective;
     private bool stopped;
 
     private Rigidbody2D rb;
+    private Animator animator;
 
-    // Knockback state
     private bool isKnockedback = false;
     private Coroutine knockbackRoutine;
 
-    // Hit invincibility
     private bool isInvincible = false;
     private Coroutine iFramesRoutine;
 
-    // Speed ramp
     private float baseMoveSpeed;
     private float speedMultiplier = 1f;
     private Coroutine speedRecoverRoutine;
 
+    private int fireballHits = 0;
+    private bool swordHit = false;
+    private bool isActive = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         baseMoveSpeed = moveSpeed;
+    }
+
+    public void ActivateEnemy()
+    {
+        isActive = true;
     }
 
     void Update()
     {
-        // If being knocked back, don't run AI movement this frame
+        if (!isActive)
+        {
+            animator.SetBool("isWalking", false);
+            return;
+        }
+
         if (isKnockedback)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             return;
         }
 
+        // DISTANCIA AL PLAYER
+        float playerDist = Vector2.Distance(transform.position, player.position);
+
+        // SI EL PLAYER ESTA CERCA -> ATACAR
+        if (playerDist <= attackDistance)
+        {
+            animator.SetBool("isWalking", false);
+            Attack();
+            return;
+        }
+
+        // SI NO ESTA CERCA -> IR AL OBJETIVO
         targetObjective = GetClosestObjective();
         if (targetObjective == null) return;
 
@@ -71,55 +92,56 @@ public class EnemyMovement_Free : MonoBehaviour
         Vector2 objPos = targetObjective.position;
         Vector2 toObjective = objPos - pos;
 
-        // ARRIVED: stop, face player (CARDINAL), attack once
         if (toObjective.magnitude <= arriveDistance)
         {
-            if (!stopped)
-            {
-                stopped = true;
-                FacePlayerIfAvailable(); // <- cardinal snap now
-                Attack();
-            }
-            else
-            {
-                FacePlayerIfAvailable(); // <- cardinal snap now
-            }
+            animator.SetBool("isWalking", false);
             return;
         }
 
-        // MOVING
-        stopped = false;
-
-        // Choose 4-dir step toward objective
         Vector2 moveDir = ChooseCardinalDirection(toObjective);
 
-        // Face movement direction while moving (optional)
-        if (faceMoveDirectionWhileMoving)
-            FaceCardinal(moveDir);
+        animator.SetBool("isWalking", true);
 
-        // Move (apply speed multiplier)
         float currentSpeed = baseMoveSpeed * speedMultiplier;
+
         transform.position += (Vector3)moveDir * (currentSpeed * Time.deltaTime);
 
-        // Kill any residual RB velocity if you're moving by transform
         if (rb != null) rb.linearVelocity = Vector2.zero;
     }
 
-    // -------------------- Public hit API --------------------
-
-    // Fireball now uses Vector2 direction (e.g. fireball travel direction)
-    public void HitFireball(float knockback, Vector2 direction)
+    void Attack()
     {
-        TryApplyHit(knockback, direction);
+        animator.SetTrigger("Attack");
     }
 
-    // Sword stays cardinal (FacingDirection)
+    // ---------------- daño ----------------
+
     public void HitSword(float knockback, FacingDirection dir)
     {
         TryApplyHit(knockback, dir);
+        animator.SetTrigger("Damage");
+        swordHit = true;
+        CheckDeath();
     }
 
-    // Gate all hits through i-frames (FacingDirection version)
+    public void HitFireball(float knockback, Vector2 direction)
+    {
+        TryApplyHit(knockback, direction);
+        animator.SetTrigger("Damage");
+        fireballHits++;
+        CheckDeath();
+    }
+
+    void CheckDeath()
+    {
+        if (fireballHits >= 3 && swordHit)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // ---------------- invencibilidad ----------------
+
     void TryApplyHit(float knockback, FacingDirection attackDir)
     {
         if (isInvincible) return;
@@ -127,7 +149,6 @@ public class EnemyMovement_Free : MonoBehaviour
         StartIFrames();
     }
 
-    // Gate all hits through i-frames (Vector2 version)
     void TryApplyHit(float knockback, Vector2 direction)
     {
         if (isInvincible) return;
@@ -137,8 +158,6 @@ public class EnemyMovement_Free : MonoBehaviour
         ApplyKnockback(knockback, direction.normalized);
         StartIFrames();
     }
-
-    // -------------------- Invincibility --------------------
 
     void StartIFrames()
     {
@@ -158,9 +177,8 @@ public class EnemyMovement_Free : MonoBehaviour
         iFramesRoutine = null;
     }
 
-    // -------------------- Knockback --------------------
+    // ---------------- knockback ----------------
 
-    // Knockback from a cardinal direction (sword)
     void ApplyKnockback(float amount, FacingDirection attackDir)
     {
         if (amount <= 0f) return;
@@ -171,13 +189,11 @@ public class EnemyMovement_Free : MonoBehaviour
         if (speedRecoverRoutine != null)
             StopCoroutine(speedRecoverRoutine);
 
-        // Convert facing dir -> vector and push AWAY from it
         Vector2 knockDir = DirToVector(attackDir);
 
         knockbackRoutine = StartCoroutine(KnockbackRoutine(knockDir, amount));
     }
 
-    // Knockback from a continuous direction (fireball)
     void ApplyKnockback(float amount, Vector2 direction)
     {
         if (amount <= 0f) return;
@@ -188,7 +204,6 @@ public class EnemyMovement_Free : MonoBehaviour
         if (speedRecoverRoutine != null)
             StopCoroutine(speedRecoverRoutine);
 
-        // Push AWAY from incoming direction
         Vector2 knockDir = direction;
 
         knockbackRoutine = StartCoroutine(KnockbackRoutine(knockDir, amount));
@@ -197,13 +212,11 @@ public class EnemyMovement_Free : MonoBehaviour
     IEnumerator KnockbackRoutine(Vector2 dir, float amount)
     {
         isKnockedback = true;
-        stopped = false; // getting hit interrupts idle/attack stance
+        stopped = false;
 
         if (rb != null) rb.linearVelocity = Vector2.zero;
 
         float timer = 0f;
-
-        // Interpret "amount" as total displacement over the duration
         float kbSpeed = amount / Mathf.Max(0.0001f, knockbackDuration);
 
         while (timer < knockbackDuration)
@@ -219,11 +232,8 @@ public class EnemyMovement_Free : MonoBehaviour
         isKnockedback = false;
         knockbackRoutine = null;
 
-        // After knockback ends: slow to 10% then ramp back up quickly
         StartSpeedRecover();
     }
-
-    // -------------------- Speed recovery --------------------
 
     void StartSpeedRecover()
     {
@@ -245,7 +255,6 @@ public class EnemyMovement_Free : MonoBehaviour
         {
             t += Time.deltaTime;
 
-            // quick ramp (ease-out)
             float u = Mathf.Clamp01(t / duration);
             u = 1f - Mathf.Pow(1f - u, 3f);
 
@@ -257,7 +266,7 @@ public class EnemyMovement_Free : MonoBehaviour
         speedRecoverRoutine = null;
     }
 
-    // -------------------- Objective logic --------------------
+    // ---------------- objetivos ----------------
 
     Transform GetClosestObjective()
     {
@@ -288,52 +297,15 @@ public class EnemyMovement_Free : MonoBehaviour
             return (to.y >= 0) ? Vector2.up : Vector2.down;
     }
 
-    // -------------------- Facing helpers --------------------
-
-    // MODIFIED: now snaps to 4 directions instead of Atan2 angle
-    void FacePlayerIfAvailable()
-    {
-        if (player == null) return;
-
-        Vector2 toPlayer = (Vector2)player.position - (Vector2)transform.position;
-        if (toPlayer.sqrMagnitude <= 0.0001f) return;
-
-        Vector2 cardinal = ChooseCardinalDirection(toPlayer);
-        FaceCardinal(cardinal);
-    }
-
-    void FaceCardinal(Vector2 dir)
-    {
-        float zRot =
-            (dir == Vector2.right) ? 0f :
-            (dir == Vector2.up) ? 90f :
-            (dir == Vector2.left) ? 180f :
-            270f;
-
-        transform.rotation = Quaternion.Euler(0f, 0f, zRot);
-    }
-
-    // Kept here in case you want smooth/angled facing later
-    void FaceToward(Vector2 direction)
-    {
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
-    }
-
     Vector2 DirToVector(FacingDirection dir)
     {
         switch (dir)
         {
             case FacingDirection.Right: return Vector2.right;
-            case FacingDirection.Left:  return Vector2.left;
-            case FacingDirection.Up:    return Vector2.up;
-            case FacingDirection.Down:  return Vector2.down;
+            case FacingDirection.Left: return Vector2.left;
+            case FacingDirection.Up: return Vector2.up;
+            case FacingDirection.Down: return Vector2.down;
             default: return Vector2.zero;
         }
-    }
-
-    void Attack()
-    {
-        // empty for now
     }
 }

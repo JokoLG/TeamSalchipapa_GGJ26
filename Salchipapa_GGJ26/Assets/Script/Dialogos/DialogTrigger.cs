@@ -7,6 +7,9 @@ public class DialogTrigger : MonoBehaviour
 
     public DialogManager dialogueManager;
 
+    public Color backgroundColor = Color.black;
+    public Color textColor = Color.white;
+
     private bool hasTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -14,8 +17,6 @@ public class DialogTrigger : MonoBehaviour
         if (hasTriggered) return;
 
         hasTriggered = true;
-        dialogueManager.StartDialogue(message);
+        dialogueManager.StartDialogue(message, backgroundColor, textColor);
     }
 }
-
-

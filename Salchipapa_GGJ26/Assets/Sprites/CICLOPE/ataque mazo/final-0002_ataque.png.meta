@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c270ad9e77b10cc42b80b8a57d5eb99b
+guid: fa6486c3d3b1d7c4880750103ef0c542
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2100517854061770954
-    second: final-0004_idle_0
+      213: -120529695143981901
+    second: final-0002_ataque_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: final-0004_idle_0
+      name: final-0002_ataque_0
       rect:
         serializedVersion: 2
-        x: 29
+        x: 22
         y: 57
-        width: 361
-        height: 417
+        width: 377
+        height: 414
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ac8b7b7fbd9862d10800000000000000
-      internalID: 2100517854061770954
+      spriteID: 3bc8e0081eac35ef0800000000000000
+      internalID: -120529695143981901
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      final-0004_idle_0: 2100517854061770954
+      final-0002_ataque_0: -120529695143981901
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
