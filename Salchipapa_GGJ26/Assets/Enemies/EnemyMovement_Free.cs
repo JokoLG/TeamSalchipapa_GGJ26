@@ -7,7 +7,11 @@ public class EnemyMovement_Free : MonoBehaviour
     [SerializeField] private Transform[] playerObjectives = new Transform[4];
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     [Header("Player")]
+=======
+    [Header("Player (for left/right facing when stopped)")]
+>>>>>>> Stashed changes
 =======
     [Header("Player (for left/right facing when stopped)")]
 >>>>>>> Stashed changes
@@ -88,6 +92,7 @@ public class EnemyMovement_Free : MonoBehaviour
         }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // DISTANCIA AL PLAYER
         float playerDist = Vector2.Distance(transform.position, player.position);
 
@@ -103,17 +108,53 @@ public class EnemyMovement_Free : MonoBehaviour
         targetObjective = GetClosestObjective();
         if (targetObjective == null) return;
 =======
+=======
+>>>>>>> Stashed changes
         if (detectionZone == null)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             return;
         }
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
         Vector2 currentPos = transform.position;
 
 <<<<<<< Updated upstream
         if (toObjective.magnitude <= arriveDistance)
+=======
+
+        Vector2 currentPos = transform.position;
+
+        bool anyObjectiveInZone = HasAnyObjectiveInDetectionZone();
+        Vector2 destination;
+        bool goingToObjective = false;
+
+        if (anyObjectiveInZone)
+        {
+            targetObjective = GetClosestObjectiveInDetectionZone();
+
+            if (targetObjective == null)
+            {
+                destination = GetDetectionZoneCenterWorld();
+            }
+            else
+            {
+                destination = targetObjective.position;
+                goingToObjective = true;
+            }
+        }
+        else
+        {
+            targetObjective = null;
+            destination = GetDetectionZoneCenterWorld();
+        }
+
+        Vector2 toDestination = destination - currentPos;
+
+        // ARRIVED
+        if (toDestination.magnitude <= arriveDistance)
+>>>>>>> Stashed changes
         {
             animator.SetBool("isWalking", false);
             return;
@@ -183,6 +224,9 @@ public class EnemyMovement_Free : MonoBehaviour
 
         float currentSpeed = baseMoveSpeed * speedMultiplier;
         transform.position += (Vector3)(moveDir * currentSpeed * Time.deltaTime);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         if (rb != null) rb.linearVelocity = Vector2.zero;
@@ -200,8 +244,11 @@ public class EnemyMovement_Free : MonoBehaviour
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // ---------------- daño ----------------
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     public void HitSword(float knockback, FacingDirection dir)
@@ -212,6 +259,7 @@ public class EnemyMovement_Free : MonoBehaviour
         CheckDeath();
     }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     public void HitFireball(float knockback, Vector2 direction)
     {
@@ -231,6 +279,8 @@ public class EnemyMovement_Free : MonoBehaviour
 
     // ---------------- invencibilidad ----------------
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     void TryApplyHit(float knockback, FacingDirection attackDir)
@@ -355,7 +405,11 @@ public class EnemyMovement_Free : MonoBehaviour
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // ---------------- objetivos ----------------
+=======
+    // -------------------- Detection / Objective logic --------------------
+>>>>>>> Stashed changes
 =======
     // -------------------- Detection / Objective logic --------------------
 >>>>>>> Stashed changes
@@ -479,5 +533,8 @@ public class EnemyMovement_Free : MonoBehaviour
     {
         // empty for now
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
