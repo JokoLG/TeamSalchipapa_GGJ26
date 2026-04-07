@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
@@ -28,6 +29,13 @@ public class Fireball : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Brick brick = other.gameObject.GetComponent<Brick>();
+        if (brick != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        
         Spotlight spotlight = other.GetComponent<Spotlight>();
         if (spotlight != null)
         {

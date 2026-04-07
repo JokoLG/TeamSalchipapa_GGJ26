@@ -9,6 +9,8 @@ public class RoomGate : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
+    public SFX_Manager sfx;
+    private bool playSound = true;
 
     void Awake()
     {
@@ -35,5 +37,10 @@ public class RoomGate : MonoBehaviour
 
         boxCollider.enabled = closed;
         spriteRenderer.enabled = closed;
+        if (!closed && playSound)
+        {
+            sfx.Play("CompletePuzzle");
+            playSound = false;
+        }
     }
 }

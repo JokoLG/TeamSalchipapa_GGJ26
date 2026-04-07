@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum SharkState { Idle, Charging, Rushing, Recovering }
@@ -21,6 +22,10 @@ public class P_SharkRush : MonoBehaviour
     public float rushSpeed = 10f;
     public float recoverDelay = 0.35f;
 
+    [Header("Pre-Rush Separation")]
+    [Tooltip("Small distance to move backwards during charge-up so we stop touching colliders in front.")]
+    public float preRushBackstep = 0.05f;
+
     private Rigidbody2D rb;
 
     public SharkState state = SharkState.Idle;
@@ -43,7 +48,7 @@ public class P_SharkRush : MonoBehaviour
         {
             case SharkState.Idle:
                 //if (Input.GetKeyDown(rushKey))
-                    //StartCharge();
+                //    StartCharge();
                 break;
 
             case SharkState.Charging:
@@ -80,9 +85,14 @@ public class P_SharkRush : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
 
+        // Move a tiny bit backwards so we aren't still touching the collider in front.
+        // Do this right at charge start (before the rush begins).
+        Vector2 backOffset = -rushDir.normalized * preRushBackstep;
+        rb.position += backOffset;
+
         timer = chargeTime;
         state = SharkState.Charging;
-        soundPlayer.Play("SharkCharge", 1f);
+        soundPlayer.Play("SharkCharge");
     }
 
     private void StartRush()
@@ -90,8 +100,8 @@ public class P_SharkRush : MonoBehaviour
         // begin the actual rush
         state = SharkState.Rushing;
         rb.linearVelocity = rushDir * rushSpeed;
-        soundPlayer.Play("SharkCast", 1f);
-        soundPlayer.PlayLoop("SharkLoop", 1f);
+        soundPlayer.Play("SharkCast");
+        soundPlayer.PlayLoop("SharkLoop");
     }
 
     private void StopRushAndRecover()
@@ -103,7 +113,7 @@ public class P_SharkRush : MonoBehaviour
         timer = recoverDelay;
         state = SharkState.Recovering;
         soundPlayer.StopLoop();
-        soundPlayer.Play("SharkCollide", 1f);
+        soundPlayer.Play("SharkCollide");
     }
 
     private void EndRecover()
@@ -118,5 +128,19 @@ public class P_SharkRush : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         StopRushAndRecover();
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Brick brick = collision.gameObject.GetComponent<Brick>();
+        if (brick != null && state != SharkState.Idle)
+        {
+            brick.BreakBrick();
+        }
+        EnemyMovement_Free enemy = collision.gameObject.GetComponent<EnemyMovement_Free>();
+        if (enemy != null && state != SharkState.Idle)
+        {
+            StopRushAndRecover();
+        }
     }
 }

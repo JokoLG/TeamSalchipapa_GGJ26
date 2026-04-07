@@ -69,7 +69,7 @@ public class P_Movement : MonoBehaviour
             movement = DirToVector(moveDir.Value);
             isMoving = true;
             facing = moveDir.Value; // facing matches motion direction
-            soundPlayer.PlayLoop("Walk", 1f);
+            soundPlayer.PlayLoop("Walk");
         }
         else
         {
@@ -114,17 +114,17 @@ public class P_Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J) && hasOdyMask) {
             weapon = MaskWeapon.Sword;
-            soundPlayer.Play("SwitchWeapon", 1f);
+            soundPlayer.Play("SwitchWeapon");
             Debug.Log($"Weapon: {weapon}");
         }
         if (Input.GetKeyDown(KeyCode.L) && hasSharkMask) {
            weapon = MaskWeapon.Shark;
-            soundPlayer.Play("SwitchWeapon", 1f);
+            soundPlayer.Play("SwitchWeapon");
             Debug.Log($"Weapon: {weapon}");
         }
         if (Input.GetKeyDown(KeyCode.K) && hasWitchMask) {
             weapon = MaskWeapon.Fireball;
-            soundPlayer.Play("SwitchWeapon", 1f);
+            soundPlayer.Play("SwitchWeapon");
             Debug.Log($"Weapon: {weapon}");
         }
     }

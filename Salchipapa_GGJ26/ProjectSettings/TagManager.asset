@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player1
   - Level
+  - Brick
+  - FinalLevel
   layers:
   - Default
   - TransparentFX

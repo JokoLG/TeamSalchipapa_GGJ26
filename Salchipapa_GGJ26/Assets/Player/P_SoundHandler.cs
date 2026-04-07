@@ -61,7 +61,7 @@ public class P_SoundHandler : MonoBehaviour
         };
     }
 
-    public void Play(string id, float volume = 1f)
+    public void Play(string id, float volume = 0.5f)
     {
         if (!sfx.TryGetValue(id, out AudioClip clip) || clip == null)
         {
@@ -72,7 +72,7 @@ public class P_SoundHandler : MonoBehaviour
         src.PlayOneShot(clip, volume);
     }
 
-    public void PlayLoop(string id, float volume = 1f)
+    public void PlayLoop(string id, float volume = 0.5f)
     {
         if (!sfx.TryGetValue(id, out AudioClip clip) || clip == null)
         {
