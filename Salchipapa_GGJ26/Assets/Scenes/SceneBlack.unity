@@ -345,7 +345,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 688594703351721007, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: typingSpeed
-      value: 0.2
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 1522009122698628931, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_Pivot.x

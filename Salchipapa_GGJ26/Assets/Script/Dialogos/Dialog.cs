@@ -12,7 +12,7 @@ public class Dialog : MonoBehaviour
     [TextArea(3, 6)]
     public string message;
 
-    public float typingSpeed = 0.05f;
+    public float typingSpeed;
 
     private bool isTyping = false;
     private bool finished = false;

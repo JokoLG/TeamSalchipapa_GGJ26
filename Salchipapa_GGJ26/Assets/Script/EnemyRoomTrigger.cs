@@ -8,7 +8,7 @@ public class EnemyRoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.ActivateEnemy();
+            //enemy.ActivateEnemy();
         }
     }
 }

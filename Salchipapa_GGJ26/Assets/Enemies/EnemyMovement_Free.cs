@@ -6,15 +6,7 @@ public class EnemyMovement_Free : MonoBehaviour
     [Header("Targets")]
     [SerializeField] private Transform[] playerObjectives = new Transform[4];
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    [Header("Player")]
-=======
     [Header("Player (for left/right facing when stopped)")]
->>>>>>> Stashed changes
-=======
-    [Header("Player (for left/right facing when stopped)")]
->>>>>>> Stashed changes
     [SerializeField] private Transform player;
 
     [Header("Detection Zone")]
@@ -25,14 +17,9 @@ public class EnemyMovement_Free : MonoBehaviour
     [SerializeField] private float moveSpeed = 2.5f;
     [SerializeField] private float arriveDistance = 0.15f;
 
-<<<<<<< Updated upstream
-    [Header("Attack")]
-    [SerializeField] private float attackDistance = 1.2f;
-=======
     [Header("Facing")]
     [Tooltip("If true, also face the movement direction while moving (cardinal).")]
     [SerializeField] private bool faceMoveDirectionWhileMoving = true;
->>>>>>> Stashed changes
 
     [Header("Knockback")]
     [SerializeField] private float knockbackDuration = 0.08f;
@@ -40,134 +27,55 @@ public class EnemyMovement_Free : MonoBehaviour
     [Header("Invincibility")]
     [SerializeField] private float iFramesDuration = 0.25f;
 
-    [Header("Speed Recovery")]
+    [Header("Speed Recovery After Hit")]
+    [Tooltip("Speed multiplier immediately after knockback ends (0.1 = 10%).")]
     [Range(0f, 1f)]
     [SerializeField] private float postHitSpeedMultiplier = 0.10f;
+
+    [Tooltip("How long it takes to ramp back to normal speed after knockback ends.")]
     [SerializeField] private float speedRecoverTime = 0.20f;
 
     private Transform targetObjective;
     private bool stopped;
 
     private Rigidbody2D rb;
-    private Animator animator;
 
+    // Knockback state
     private bool isKnockedback = false;
     private Coroutine knockbackRoutine;
 
+    // Hit invincibility
     private bool isInvincible = false;
     private Coroutine iFramesRoutine;
 
+    // Speed ramp
     private float baseMoveSpeed;
     private float speedMultiplier = 1f;
     private Coroutine speedRecoverRoutine;
 
-    private int fireballHits = 0;
-    private bool swordHit = false;
-    private bool isActive = false;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         baseMoveSpeed = moveSpeed;
-    }
-
-    public void ActivateEnemy()
-    {
-        isActive = true;
     }
 
     void Update()
     {
-        if (!isActive)
-        {
-            animator.SetBool("isWalking", false);
-            return;
-        }
-
+        // If being knocked back, don't run AI movement this frame
         if (isKnockedback)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             return;
         }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        // DISTANCIA AL PLAYER
-        float playerDist = Vector2.Distance(transform.position, player.position);
-
-        // SI EL PLAYER ESTA CERCA -> ATACAR
-        if (playerDist <= attackDistance)
-        {
-            animator.SetBool("isWalking", false);
-            Attack();
-            return;
-        }
-
-        // SI NO ESTA CERCA -> IR AL OBJETIVO
-        targetObjective = GetClosestObjective();
-        if (targetObjective == null) return;
-=======
-=======
->>>>>>> Stashed changes
         if (detectionZone == null)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             return;
         }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
 
         Vector2 currentPos = transform.position;
 
-<<<<<<< Updated upstream
-        if (toObjective.magnitude <= arriveDistance)
-=======
-
-        Vector2 currentPos = transform.position;
-
-        bool anyObjectiveInZone = HasAnyObjectiveInDetectionZone();
-        Vector2 destination;
-        bool goingToObjective = false;
-
-        if (anyObjectiveInZone)
-        {
-            targetObjective = GetClosestObjectiveInDetectionZone();
-
-            if (targetObjective == null)
-            {
-                destination = GetDetectionZoneCenterWorld();
-            }
-            else
-            {
-                destination = targetObjective.position;
-                goingToObjective = true;
-            }
-        }
-        else
-        {
-            targetObjective = null;
-            destination = GetDetectionZoneCenterWorld();
-        }
-
-        Vector2 toDestination = destination - currentPos;
-
-        // ARRIVED
-        if (toDestination.magnitude <= arriveDistance)
->>>>>>> Stashed changes
-        {
-            animator.SetBool("isWalking", false);
-            return;
-        }
-
-        Vector2 moveDir = ChooseCardinalDirection(toObjective);
-
-        animator.SetBool("isWalking", true);
-
-        float currentSpeed = baseMoveSpeed * speedMultiplier;
-
-        transform.position += (Vector3)moveDir * (currentSpeed * Time.deltaTime);
-=======
         bool anyObjectiveInZone = HasAnyObjectiveInDetectionZone();
         Vector2 destination;
         bool goingToObjective = false;
@@ -224,65 +132,22 @@ public class EnemyMovement_Free : MonoBehaviour
 
         float currentSpeed = baseMoveSpeed * speedMultiplier;
         transform.position += (Vector3)(moveDir * currentSpeed * Time.deltaTime);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         if (rb != null) rb.linearVelocity = Vector2.zero;
     }
 
-<<<<<<< Updated upstream
-    void Attack()
-=======
     // -------------------- Public hit API --------------------
 
     public void HitFireball(float knockback, Vector2 direction)
->>>>>>> Stashed changes
     {
-        animator.SetTrigger("Attack");
+        TryApplyHit(knockback, direction);
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // ---------------- daño ----------------
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     public void HitSword(float knockback, FacingDirection dir)
     {
         TryApplyHit(knockback, dir);
-        animator.SetTrigger("Damage");
-        swordHit = true;
-        CheckDeath();
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public void HitFireball(float knockback, Vector2 direction)
-    {
-        TryApplyHit(knockback, direction);
-        animator.SetTrigger("Damage");
-        fireballHits++;
-        CheckDeath();
-    }
-
-    void CheckDeath()
-    {
-        if (fireballHits >= 3 && swordHit)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    // ---------------- invencibilidad ----------------
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     void TryApplyHit(float knockback, FacingDirection attackDir)
     {
         if (isInvincible) return;
@@ -298,6 +163,8 @@ public class EnemyMovement_Free : MonoBehaviour
         ApplyKnockback(knockback, direction.normalized);
         StartIFrames();
     }
+
+    // -------------------- Invincibility --------------------
 
     void StartIFrames()
     {
@@ -317,7 +184,7 @@ public class EnemyMovement_Free : MonoBehaviour
         iFramesRoutine = null;
     }
 
-    // ---------------- knockback ----------------
+    // -------------------- Knockback --------------------
 
     void ApplyKnockback(float amount, FacingDirection attackDir)
     {
@@ -373,6 +240,8 @@ public class EnemyMovement_Free : MonoBehaviour
         StartSpeedRecover();
     }
 
+    // -------------------- Speed recovery --------------------
+
     void StartSpeedRecover()
     {
         speedMultiplier = Mathf.Clamp01(postHitSpeedMultiplier);
@@ -404,15 +273,7 @@ public class EnemyMovement_Free : MonoBehaviour
         speedRecoverRoutine = null;
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // ---------------- objetivos ----------------
-=======
     // -------------------- Detection / Objective logic --------------------
->>>>>>> Stashed changes
-=======
-    // -------------------- Detection / Objective logic --------------------
->>>>>>> Stashed changes
 
     bool HasAnyObjectiveInDetectionZone()
     {
@@ -471,8 +332,6 @@ public class EnemyMovement_Free : MonoBehaviour
             return (to.y >= 0f) ? Vector2.up : Vector2.down;
     }
 
-<<<<<<< Updated upstream
-=======
     // -------------------- Facing helpers --------------------
 
     // Only face LEFT or RIGHT when stopped
@@ -514,27 +373,20 @@ public class EnemyMovement_Free : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
->>>>>>> Stashed changes
     Vector2 DirToVector(FacingDirection dir)
     {
         switch (dir)
         {
             case FacingDirection.Right: return Vector2.right;
-            case FacingDirection.Left: return Vector2.left;
-            case FacingDirection.Up: return Vector2.up;
-            case FacingDirection.Down: return Vector2.down;
+            case FacingDirection.Left:  return Vector2.left;
+            case FacingDirection.Up:    return Vector2.up;
+            case FacingDirection.Down:  return Vector2.down;
             default: return Vector2.zero;
         }
     }
-<<<<<<< Updated upstream
-=======
 
     void Attack()
     {
         // empty for now
     }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
