@@ -35,6 +35,15 @@ public class EnemyMovement_Free : MonoBehaviour
     [Tooltip("How long it takes to ramp back to normal speed after knockback ends.")]
     [SerializeField] private float speedRecoverTime = 0.20f;
 
+    [Header("Combo Kill")] // recibe daño el ciclope
+    [SerializeField] private int witchHitsRequired = 3;
+    [SerializeField] private int odyHitsRequired = 1;
+
+    private int witchHits = 0;
+    private int odyHits = 0;
+
+    [SerializeField] private GameObject sharkMaskPrefab;
+
     private Transform targetObjective;
     private bool stopped;
 
@@ -141,11 +150,15 @@ public class EnemyMovement_Free : MonoBehaviour
     public void HitFireball(float knockback, Vector2 direction)
     {
         TryApplyHit(knockback, direction);
+        witchHits++; // se añade combo de fuego ciclope
+        CheckDeath();
     }
 
     public void HitSword(float knockback, FacingDirection dir)
     {
         TryApplyHit(knockback, dir);
+        odyHits++; // se añade combo de sword ciclope
+        CheckDeath();
     }
 
     void TryApplyHit(float knockback, FacingDirection attackDir)
@@ -162,6 +175,22 @@ public class EnemyMovement_Free : MonoBehaviour
 
         ApplyKnockback(knockback, direction.normalized);
         StartIFrames();
+    }
+    void CheckDeath() // muerte ciclope
+    {
+        if (witchHits >= witchHitsRequired && odyHits >= odyHitsRequired)
+        {
+            Die();
+        }
+    }
+    void Die() // aparece mascara 
+    {
+        if (sharkMaskPrefab != null)
+        {
+            Instantiate(sharkMaskPrefab, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 
     // -------------------- Invincibility --------------------
