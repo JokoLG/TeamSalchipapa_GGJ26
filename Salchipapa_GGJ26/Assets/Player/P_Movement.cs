@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum FacingDirection { Up, Down, Left, Right }
-public enum MaskWeapon {None, Sword, Fireball, Shark}
+public enum MaskWeapon { None, Sword, Fireball, Shark }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class P_Movement : MonoBehaviour
@@ -50,6 +50,7 @@ public class P_Movement : MonoBehaviour
         {
             movement = Vector2.zero;
             isMoving = false;
+
             UpdateWeaponPivot();
             if (sword != null) sword.SetFacing(facing);
             return;
@@ -69,14 +70,20 @@ public class P_Movement : MonoBehaviour
             movement = DirToVector(moveDir.Value);
             isMoving = true;
             facing = moveDir.Value; // facing matches motion direction
-            soundPlayer.PlayLoop("Walk");
+
+            if (soundPlayer != null)
+                soundPlayer.PlayLoop("Walk");
         }
         else
         {
             movement = Vector2.zero;
-            if (isMoving && soundPlayer.srcLoop.isPlaying) soundPlayer.StopLoop();
+
+            if (isMoving && soundPlayer != null && soundPlayer.srcLoop.isPlaying)
+                soundPlayer.StopLoop();
+
             isMoving = false;
         }
+
         UpdateWeaponPivot();
         if (sword != null) sword.SetFacing(facing);
 
@@ -89,6 +96,7 @@ public class P_Movement : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.J)) sword.TryAttack();
                 else UpdateMaskWeapon();
                 break;
+
             case MaskWeapon.Fireball:
                 sword.isActive = false;
                 fireball.isActive = true;
@@ -96,6 +104,7 @@ public class P_Movement : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.K)) fireball.Shoot();
                 else UpdateMaskWeapon();
                 break;
+
             case MaskWeapon.Shark:
                 sword.isActive = false;
                 fireball.isActive = false;
@@ -104,6 +113,7 @@ public class P_Movement : MonoBehaviour
                     sharkRush.StartCharge();
                 else UpdateMaskWeapon();
                 break;
+
             default:
                 UpdateMaskWeapon();
                 break;
@@ -112,20 +122,22 @@ public class P_Movement : MonoBehaviour
 
     public void UpdateMaskWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.J) && hasOdyMask) {
+        if (Input.GetKeyDown(KeyCode.J) && hasOdyMask)
+        {
             weapon = MaskWeapon.Sword;
-            soundPlayer.Play("SwitchWeapon");
-            Debug.Log($"Weapon: {weapon}");
+            if (soundPlayer != null) soundPlayer.Play("SwitchWeapon");
         }
-        if (Input.GetKeyDown(KeyCode.L) && hasSharkMask) {
-           weapon = MaskWeapon.Shark;
-            soundPlayer.Play("SwitchWeapon");
-            Debug.Log($"Weapon: {weapon}");
+
+        if (Input.GetKeyDown(KeyCode.L) && hasSharkMask)
+        {
+            weapon = MaskWeapon.Shark;
+            if (soundPlayer != null) soundPlayer.Play("SwitchWeapon");
         }
-        if (Input.GetKeyDown(KeyCode.K) && hasWitchMask) {
+
+        if (Input.GetKeyDown(KeyCode.K) && hasWitchMask)
+        {
             weapon = MaskWeapon.Fireball;
-            soundPlayer.Play("SwitchWeapon");
-            Debug.Log($"Weapon: {weapon}");
+            if (soundPlayer != null) soundPlayer.Play("SwitchWeapon");
         }
     }
 
@@ -142,7 +154,7 @@ public class P_Movement : MonoBehaviour
         {
             movement = Vector2.zero;
             isMoving = false;
-            rb.linearVelocity = Vector2.zero; 
+            rb.linearVelocity = Vector2.zero;
         }
     }
 

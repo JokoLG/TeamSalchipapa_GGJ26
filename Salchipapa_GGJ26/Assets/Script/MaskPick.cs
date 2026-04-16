@@ -6,6 +6,7 @@ public class MaskPick : MonoBehaviour
 
         public MaskType type;
         public SFX_Manager sfx;
+        public BGM_Manager bgm;
 
     private void OnTriggerEnter2D(Collider2D other)
         {
@@ -23,16 +24,19 @@ public class MaskPick : MonoBehaviour
                 case MaskType.Witch:
                     player.hasWitchMask = true;
                     sfx?.Play("Obt_Witch");
+                    bgm.PlayBGM("witch");
                 break;
 
                 case MaskType.Ody:
                     player.hasOdyMask = true;
                     sfx?.Play("Obt_Ody");
+                    bgm.PlayBGM("ody");
                 break;
 
                 case MaskType.Shark:
                     player.hasSharkMask = true;
                 FindObjectOfType<SFX_Manager>()?.Play("Obt_Shark");
+                bgm.PlayBGM("shark");
                 break;
             }
 

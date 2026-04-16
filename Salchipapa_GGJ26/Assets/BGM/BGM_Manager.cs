@@ -7,27 +7,28 @@ public class BGM_Manager : MonoBehaviour
     public AudioSource srcLoop;
 
     [Header("BGM Tracks")]
-    public AudioClip Walk;
-    public AudioClip Hit_1, Hit_2, Death, SwitchWeapon;
+    public AudioClip norm;
+    public AudioClip witch, ody, shark, boss;
 
     private Dictionary<string, AudioClip> sfx;
 
     void Awake()
     {
-        srcLoop.playOnAwake = false;
+        srcLoop.playOnAwake = true;
         srcLoop.loop = true;
 
         sfx = new Dictionary<string, AudioClip>()
         {
-            { "Walk", Walk },
-            { "Hit_1", Hit_1 },
-            { "Hit_2", Hit_2 },
-            { "Death", Death },
-            { "SwitchWeapon", SwitchWeapon },
+            { "norm", norm },
+            { "witch", witch },
+            { "ody", ody },
+            { "shark", shark },
+            { "boss", boss },
         };
+        PlayBGM("norm");
     }
 
-    public void PlayBGM(string id, float volume = 1f)
+    public void PlayBGM(string id, float volume = 0.3f)
     {
         if (!sfx.TryGetValue(id, out AudioClip clip) || clip == null)
         {
@@ -37,6 +38,7 @@ public class BGM_Manager : MonoBehaviour
 
         if (srcLoop.isPlaying && srcLoop.clip == clip) return;
 
+        srcLoop.Stop();
         srcLoop.clip = clip;
         srcLoop.volume = volume;
         srcLoop.Play();

@@ -109,9 +109,10 @@ public class P_Sword : MonoBehaviour
         if (!isAttacking) return;
 
         EnemyMovement_Free enemy = other.GetComponent<EnemyMovement_Free>();
-        if (enemy == null) return;
+        if (enemy != null) enemy.HitSword(swordKnockback, playerFacing);
 
-        enemy.HitSword(swordKnockback, playerFacing);
+        EneCom ene = other.GetComponent<EneCom>();
+        if (ene != null) ene.HitSword(swordKnockback, playerFacing);
     }
 
     // ---------------- EXTERNAL SETTERS ----------------

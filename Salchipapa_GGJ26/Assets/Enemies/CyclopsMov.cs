@@ -1,0 +1,311 @@
+using System.Collections;
+using UnityEngine;
+
+public class CyclopsMov : MonoBehaviour
+{
+    [Header("Targets")]
+    [SerializeField] private Transform[] playerObjectives = new Transform[4];
+
+    [Header("Player")]
+    [SerializeField] private Transform player;
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 2.5f;
+    [SerializeField] private float arriveDistance = 0.15f;
+
+    [Header("Attack")]
+    [SerializeField] private float attackDistance = 1.2f;
+
+    [Header("Knockback")]
+    [SerializeField] private float knockbackDuration = 0.08f;
+
+    [Header("Invincibility")]
+    [SerializeField] private float iFramesDuration = 0.25f;
+
+    [Header("Speed Recovery")]
+    [Range(0f, 1f)]
+    [SerializeField] private float postHitSpeedMultiplier = 0.10f;
+    [SerializeField] private float speedRecoverTime = 0.20f;
+
+    private Transform targetObjective;
+    private bool stopped;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+
+    private bool isKnockedback = false;
+    private Coroutine knockbackRoutine;
+
+    private bool isInvincible = false;
+    private Coroutine iFramesRoutine;
+
+    private float baseMoveSpeed;
+    private float speedMultiplier = 1f;
+    private Coroutine speedRecoverRoutine;
+
+    private int fireballHits = 0;
+    private bool swordHit = false;
+    private bool isActive = false;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        baseMoveSpeed = moveSpeed;
+    }
+
+    public void ActivateEnemy()
+    {
+        isActive = true;
+    }
+
+    void Update()
+    {
+        if (!isActive)
+        {
+            animator.SetBool("isWalking", false);
+            return;
+        }
+
+        if (isKnockedback)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        // DISTANCIA AL PLAYER
+        float playerDist = Vector2.Distance(transform.position, player.position);
+
+        // SI EL PLAYER ESTA CERCA -> ATACAR
+        if (playerDist <= attackDistance)
+        {
+            animator.SetBool("isWalking", false);
+            Attack();
+            return;
+        }
+
+        // SI NO ESTA CERCA -> IR AL OBJETIVO
+        targetObjective = GetClosestObjective();
+        if (targetObjective == null) return;
+
+        Vector2 pos = transform.position;
+        Vector2 objPos = targetObjective.position;
+        Vector2 toObjective = objPos - pos;
+
+        if (toObjective.magnitude <= arriveDistance)
+        {
+            animator.SetBool("isWalking", false);
+            return;
+        }
+
+        Vector2 moveDir = ChooseCardinalDirection(toObjective);
+
+        animator.SetBool("isWalking", true);
+
+        float currentSpeed = baseMoveSpeed * speedMultiplier;
+
+        transform.position += (Vector3)moveDir * (currentSpeed * Time.deltaTime);
+
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+    }
+
+    void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    // ---------------- daño ----------------
+
+    public void HitSword(float knockback, FacingDirection dir)
+    {
+        TryApplyHit(knockback, dir);
+        animator.SetTrigger("Damage");
+        swordHit = true;
+        CheckDeath();
+    }
+
+    public void HitFireball(float knockback, Vector2 direction)
+    {
+        TryApplyHit(knockback, direction);
+        animator.SetTrigger("Damage");
+        fireballHits++;
+        CheckDeath();
+    }
+
+    void CheckDeath()
+    {
+        if (fireballHits >= 3 && swordHit)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // ---------------- invencibilidad ----------------
+
+    void TryApplyHit(float knockback, FacingDirection attackDir)
+    {
+        if (isInvincible) return;
+        ApplyKnockback(knockback, attackDir);
+        StartIFrames();
+    }
+
+    void TryApplyHit(float knockback, Vector2 direction)
+    {
+        if (isInvincible) return;
+
+        if (direction.sqrMagnitude < 0.0001f) return;
+
+        ApplyKnockback(knockback, direction.normalized);
+        StartIFrames();
+    }
+
+    void StartIFrames()
+    {
+        if (iFramesDuration <= 0f) return;
+
+        if (iFramesRoutine != null)
+            StopCoroutine(iFramesRoutine);
+
+        iFramesRoutine = StartCoroutine(IFramesRoutine());
+    }
+
+    IEnumerator IFramesRoutine()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(iFramesDuration);
+        isInvincible = false;
+        iFramesRoutine = null;
+    }
+
+    // ---------------- knockback ----------------
+
+    void ApplyKnockback(float amount, FacingDirection attackDir)
+    {
+        if (amount <= 0f) return;
+
+        if (knockbackRoutine != null)
+            StopCoroutine(knockbackRoutine);
+
+        if (speedRecoverRoutine != null)
+            StopCoroutine(speedRecoverRoutine);
+
+        Vector2 knockDir = DirToVector(attackDir);
+
+        knockbackRoutine = StartCoroutine(KnockbackRoutine(knockDir, amount));
+    }
+
+    void ApplyKnockback(float amount, Vector2 direction)
+    {
+        if (amount <= 0f) return;
+
+        if (knockbackRoutine != null)
+            StopCoroutine(knockbackRoutine);
+
+        if (speedRecoverRoutine != null)
+            StopCoroutine(speedRecoverRoutine);
+
+        Vector2 knockDir = direction;
+
+        knockbackRoutine = StartCoroutine(KnockbackRoutine(knockDir, amount));
+    }
+
+    IEnumerator KnockbackRoutine(Vector2 dir, float amount)
+    {
+        isKnockedback = true;
+        stopped = false;
+
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+
+        float timer = 0f;
+        float kbSpeed = amount / Mathf.Max(0.0001f, knockbackDuration);
+
+        while (timer < knockbackDuration)
+        {
+            transform.position += (Vector3)(dir * kbSpeed * Time.deltaTime);
+
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        isKnockedback = false;
+        knockbackRoutine = null;
+
+        StartSpeedRecover();
+    }
+
+    void StartSpeedRecover()
+    {
+        speedMultiplier = Mathf.Clamp01(postHitSpeedMultiplier);
+
+        if (speedRecoverRoutine != null)
+            StopCoroutine(speedRecoverRoutine);
+
+        speedRecoverRoutine = StartCoroutine(SpeedRecoverRoutine());
+    }
+
+    IEnumerator SpeedRecoverRoutine()
+    {
+        float t = 0f;
+        float start = speedMultiplier;
+        float duration = Mathf.Max(0.0001f, speedRecoverTime);
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+
+            float u = Mathf.Clamp01(t / duration);
+            u = 1f - Mathf.Pow(1f - u, 3f);
+
+            speedMultiplier = Mathf.Lerp(start, 1f, u);
+            yield return null;
+        }
+
+        speedMultiplier = 1f;
+        speedRecoverRoutine = null;
+    }
+
+    // ---------------- objetivos ----------------
+
+    Transform GetClosestObjective()
+    {
+        Transform best = null;
+        float bestDist = float.PositiveInfinity;
+        Vector2 pos = transform.position;
+
+        for (int i = 0; i < playerObjectives.Length; i++)
+        {
+            Transform t = playerObjectives[i];
+            if (t == null) continue;
+
+            float d = Vector2.SqrMagnitude((Vector2)t.position - pos);
+            if (d < bestDist)
+            {
+                bestDist = d;
+                best = t;
+            }
+        }
+        return best;
+    }
+
+    Vector2 ChooseCardinalDirection(Vector2 to)
+    {
+        if (Mathf.Abs(to.x) >= Mathf.Abs(to.y))
+            return (to.x >= 0) ? Vector2.right : Vector2.left;
+        else
+            return (to.y >= 0) ? Vector2.up : Vector2.down;
+    }
+
+    Vector2 DirToVector(FacingDirection dir)
+    {
+        switch (dir)
+        {
+            case FacingDirection.Right: return Vector2.right;
+            case FacingDirection.Left: return Vector2.left;
+            case FacingDirection.Up: return Vector2.up;
+            case FacingDirection.Down: return Vector2.down;
+            default: return Vector2.zero;
+        }
+    }
+}

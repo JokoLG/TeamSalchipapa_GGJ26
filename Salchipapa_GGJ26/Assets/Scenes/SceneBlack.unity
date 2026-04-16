@@ -344,6 +344,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 688594703351721007, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: message
+      value: "\xA1Damas y caballeros\u2026 \nHa llegado el show que han estado esperando!
+        \n\xA1Con ustedes\u2026el \xFAnico, el inigualable\u2026Maniqu\xED-!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 688594703351721007, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: typingSpeed
       value: 0.075
       objectReference: {fileID: 0}
@@ -426,6 +431,26 @@ PrefabInstance:
     - target: {fileID: 1522009122698628931, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3522496204957007871, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1176372814}
+    - target: {fileID: 3522496204957007871, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089908660864786410, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688241540250664065, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688241540250664065, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8537799267703879383, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_IsActive

@@ -50,7 +50,7 @@ public class Dialog : MonoBehaviour
             }
             else if (finished)
             {
-                SceneManager.LoadScene("GameScene");
+                SceneManager.LoadScene("GameScene2");
             }
         }
     }

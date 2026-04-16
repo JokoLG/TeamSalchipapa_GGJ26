@@ -44,10 +44,17 @@ public class Fireball : MonoBehaviour
         }
 
         EnemyMovement_Free enemy = other.GetComponent<EnemyMovement_Free>();
-        if (enemy == null) return;
-        else
+        if (enemy != null)
         {
             enemy.HitFireball(fireballKnockback, dir);
+            Destroy(gameObject);
+        }
+
+        EneCom ene = other.GetComponent<EneCom>();
+        if (ene == null) return;
+        else
+        {
+            ene.HitFireball(fireballKnockback, dir);
             Destroy(gameObject);
         }
 
