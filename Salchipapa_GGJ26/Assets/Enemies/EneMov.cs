@@ -14,6 +14,7 @@ public class EneMov : MonoBehaviour
 
     private Rigidbody2D rb;
     private EneCom combat;
+    private EneAtk attack;
 
     private bool isActive;
     private Transform targetObjective;
@@ -22,30 +23,45 @@ public class EneMov : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         combat = GetComponent<EneCom>();
+        attack = GetComponent<EneAtk>();
         isActive = true;
     }
 
     void Update()
     {
-        // If enemy is disabled, do nothing
-        if (!isActive) { StopMovement(); return; }
+        if (!isActive)
+        {
+            StopMovement();
+            return;
+        }
 
-        // If combat says movement is blocked (ex: knockback), do nothing
         if (combat != null && !combat.CanMove)
-        { StopMovement(); return; }
+        {
+            StopMovement();
+            return;
+        }
 
-        // Detection zone is required for this behavior
+        if (attack != null && attack.ShouldBlockMovement)
+        {
+            StopMovement();
+            return;
+        }
+
         if (detectionZone == null)
-        { StopMovement(); return; }
+        {
+            StopMovement();
+            return;
+        }
 
         Vector2 currentPos = transform.position;
         Vector2 destination = GetCurrentDestination(currentPos);
-
         Vector2 toDestination = destination - currentPos;
 
-        // Stop when close enough
         if (toDestination.magnitude <= arriveDistance)
-        { StopMovement(); return; }
+        {
+            StopMovement();
+            return;
+        }
 
         Vector2 moveDir = ChooseCardinalDirection(toDestination);
         transform.position += (Vector3)(moveDir * moveSpeed * Time.deltaTime);

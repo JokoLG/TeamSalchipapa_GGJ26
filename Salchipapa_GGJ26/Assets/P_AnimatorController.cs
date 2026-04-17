@@ -18,9 +18,13 @@ public class P_AnimatorController : MonoBehaviour
     [SerializeField] private string downState = "Down";
     [SerializeField] private string leftState = "Left";
     [SerializeField] private string rightState = "Right";
+    [SerializeField] private string hurtState = "Hurt";
 
     private RuntimeAnimatorController currentController;
     private string currentState = "";
+
+    private bool manualStateLock = false;
+    private string lockedState = "";
 
     void Awake()
     {
@@ -37,6 +41,13 @@ public class P_AnimatorController : MonoBehaviour
             return;
 
         UpdateOverrideController();
+
+        if (manualStateLock)
+        {
+            PlayState(lockedState);
+            return;
+        }
+
         UpdateAnimationState();
     }
 
@@ -123,5 +134,20 @@ public class P_AnimatorController : MonoBehaviour
 
         animator.Play(stateName, 0, 0f);
         currentState = stateName;
+    }
+
+    public void PlayHurt()
+    {
+        manualStateLock = true;
+        lockedState = hurtState;
+        currentState = "";
+        PlayState(hurtState);
+    }
+
+    public void StopManualState()
+    {
+        manualStateLock = false;
+        lockedState = "";
+        currentState = "";
     }
 }
