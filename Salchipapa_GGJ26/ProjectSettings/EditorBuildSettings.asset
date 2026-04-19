@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreditsScene.unity
     guid: 3e3ad31ce71c66644846d0a7d5d50cda
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: dc0aeb58fcac3be43a49ef90901e9323
+  - enabled: 1
+    path: Assets/Scenes/TheEnd.unity
+    guid: be768681a62966f48aa09a4e20f8ee9e
+  - enabled: 1
+    path: Assets/Scenes/Gracias.unity
+    guid: fb22b28796edd76468064a00e11423a4
+  - enabled: 1
+    path: Assets/Scenes/Adrian.unity
+    guid: cda9f4018bfeeda4caa188d08f0f3b75
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

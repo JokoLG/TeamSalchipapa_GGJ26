@@ -8,10 +8,12 @@ public class EneAtk : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] private float attackStartup = 0.08f;
-    [SerializeField] private float attackCooldown = 0.60f;
-    [SerializeField] private float attackKnockback = 0.80f;
+    [SerializeField] private float attackDuration = 0.35f;
+    [SerializeField] private float attackCooldown = 0.90f;
+    [SerializeField] private float attackKnockback = 1.75f;
 
     private EneCom combat;
+    private EneAni ani;
 
     private bool isAttacking = false;
     private float cooldownTimer = 0f;
@@ -30,12 +32,18 @@ public class EneAtk : MonoBehaviour
     void Awake()
     {
         combat = GetComponent<EneCom>();
+        ani = GetComponent<EneAni>();
     }
 
     void Update()
     {
         if (!isActive) return;
-        if (combat != null && combat.IsDead) return;
+
+        if (combat != null && !combat.CanAttack)
+        {
+            isAttacking = false;
+            return;
+        }
 
         if (cooldownTimer > 0f)
             cooldownTimer -= Time.deltaTime;
@@ -67,9 +75,12 @@ public class EneAtk : MonoBehaviour
     {
         isAttacking = true;
 
+        if (ani != null)
+            ani.PlayAttackFor(attackDuration);
+
         yield return new WaitForSeconds(attackStartup);
 
-        if (attackHitbox != null && attackHitbox.HasTarget)
+        if (combat != null && combat.CanAttack && attackHitbox != null && attackHitbox.HasTarget)
         {
             P_Health player = attackHitbox.CurrentTarget;
 
@@ -85,6 +96,10 @@ public class EneAtk : MonoBehaviour
                 player.HitEnemy(attackKnockback, dir);
             }
         }
+
+        float remainingAttackTime = attackDuration - attackStartup;
+        if (remainingAttackTime > 0f)
+            yield return new WaitForSeconds(remainingAttackTime);
 
         cooldownTimer = attackCooldown;
         isAttacking = false;

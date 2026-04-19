@@ -90,7 +90,7 @@ public class P_SoundHandler : MonoBehaviour
     public void StopLoop()
     {
         srcLoop.Stop();
-        src.Stop();
+        //src.Stop();
         srcLoop.volume = 1f;
     }
 }

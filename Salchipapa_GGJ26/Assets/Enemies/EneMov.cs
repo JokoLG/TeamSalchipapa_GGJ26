@@ -15,6 +15,7 @@ public class EneMov : MonoBehaviour
     private Rigidbody2D rb;
     private EneCom combat;
     private EneAtk attack;
+    private EneAni ani;
 
     private bool isActive;
     private Transform targetObjective;
@@ -24,6 +25,7 @@ public class EneMov : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         combat = GetComponent<EneCom>();
         attack = GetComponent<EneAtk>();
+        ani = GetComponent<EneAni>();
         isActive = true;
     }
 
@@ -66,7 +68,11 @@ public class EneMov : MonoBehaviour
         Vector2 moveDir = ChooseCardinalDirection(toDestination);
         transform.position += (Vector3)(moveDir * moveSpeed * Time.deltaTime);
 
-        StopMovement();
+        if (ani != null)
+            ani.SetMoving(true);
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
     }
 
     public void ActivateEnemy()
@@ -153,6 +159,9 @@ public class EneMov : MonoBehaviour
 
     void StopMovement()
     {
+        if (ani != null)
+            ani.SetMoving(false);
+
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
     }

@@ -5,6 +5,7 @@ public class P_AnimatorController : MonoBehaviour
     [Header("References")]
     [SerializeField] private P_Movement movementScript;
     [SerializeField] private Animator animator;
+    [SerializeField] private P_SharkRush sharkRush;
 
     [Header("Override Controllers")]
     [SerializeField] private AnimatorOverrideController baseOverride;
@@ -20,6 +21,12 @@ public class P_AnimatorController : MonoBehaviour
     [SerializeField] private string rightState = "Right";
     [SerializeField] private string hurtState = "Hurt";
 
+    [Header("Rush State Names")]
+    [SerializeField] private string rushUpState = "RushUp";
+    [SerializeField] private string rushDownState = "RushDown";
+    [SerializeField] private string rushLeftState = "RushLeft";
+    [SerializeField] private string rushRightState = "RushRight";
+
     private RuntimeAnimatorController currentController;
     private string currentState = "";
 
@@ -33,6 +40,12 @@ public class P_AnimatorController : MonoBehaviour
 
         if (movementScript == null)
             movementScript = GetComponentInParent<P_Movement>();
+
+        if (sharkRush == null && movementScript != null)
+            sharkRush = movementScript.sharkRush;
+
+        if (sharkRush == null)
+            sharkRush = GetComponentInParent<P_SharkRush>();
     }
 
     void Update()
@@ -91,37 +104,79 @@ public class P_AnimatorController : MonoBehaviour
     {
         string targetState;
 
+        // Special shark rush handling
+        if (movementScript.weapon == MaskWeapon.Shark && sharkRush != null)
+        {
+            // While charging: use normal shark movement animations in facing direction
+            if (sharkRush.state == SharkState.Charging)
+            {
+                targetState = GetNormalDirectionalState();
+                PlayState(targetState);
+                return;
+            }
+
+            // While actually rushing: use RushLeft / RushRight / RushUp / RushDown
+            if (sharkRush.state == SharkState.Rushing)
+            {
+                targetState = GetRushDirectionalState();
+                PlayState(targetState);
+                return;
+            }
+        }
+
+        // Normal animation logic
         if (!movementScript.isMoving)
         {
             targetState = idleState;
         }
         else
         {
-            switch (movementScript.facing)
-            {
-                case FacingDirection.Up:
-                    targetState = upState;
-                    break;
-
-                case FacingDirection.Down:
-                    targetState = downState;
-                    break;
-
-                case FacingDirection.Left:
-                    targetState = leftState;
-                    break;
-
-                case FacingDirection.Right:
-                    targetState = rightState;
-                    break;
-
-                default:
-                    targetState = idleState;
-                    break;
-            }
+            targetState = GetNormalDirectionalState();
         }
 
         PlayState(targetState);
+    }
+
+    string GetNormalDirectionalState()
+    {
+        switch (movementScript.facing)
+        {
+            case FacingDirection.Up:
+                return upState;
+
+            case FacingDirection.Down:
+                return downState;
+
+            case FacingDirection.Left:
+                return leftState;
+
+            case FacingDirection.Right:
+                return rightState;
+
+            default:
+                return idleState;
+        }
+    }
+
+    string GetRushDirectionalState()
+    {
+        switch (movementScript.facing)
+        {
+            case FacingDirection.Up:
+                return rushUpState;
+
+            case FacingDirection.Down:
+                return rushDownState;
+
+            case FacingDirection.Left:
+                return rushLeftState;
+
+            case FacingDirection.Right:
+                return rushRightState;
+
+            default:
+                return rushRightState;
+        }
     }
 
     void PlayState(string stateName)

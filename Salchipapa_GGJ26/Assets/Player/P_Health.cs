@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class P_Health : MonoBehaviour
@@ -161,6 +162,7 @@ public class P_Health : MonoBehaviour
         if (movement != null)
             movement.SetControlsLocked(true);
 
+        SceneManager.LoadScene("GameOver");
         gameObject.SetActive(false);
     }
 }

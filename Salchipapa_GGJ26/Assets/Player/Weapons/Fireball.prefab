@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 18
   lifeTime: 0.25
-  fireballKnockback: 1
+  fireballKnockback: 0
 --- !u!1 &4495331914660187271
 GameObject:
   m_ObjectHideFlags: 0

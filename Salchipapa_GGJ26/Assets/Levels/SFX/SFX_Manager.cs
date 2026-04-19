@@ -11,18 +11,18 @@ public class SFX_Manager : MonoBehaviour
     [Header("└─Masks")]
     public AudioClip Obt_Ody;
     public AudioClip Obt_Witch, Obt_Shark;
+
     [Header("└─Misc")]
     public AudioClip CompletePuzzle;
     public AudioClip SpotLightON, BrickBreak, BrickFall, CrowdCheer;
+
     [Header("└─Enemies")]
     public AudioClip SmallHit;
     public AudioClip SmallDeath, SmallAttack, BigHit, BigDeath, BigAttack;
+
     [Header("└─Cyclops")]
-    public AudioClip PH0;
-    public AudioClip PH1, PH2, PH3;
-    [Header("└─Cyclops")]
-    public AudioClip PH4;
-    public AudioClip PH5, PH6;
+    public AudioClip CycStun;
+    public AudioClip CycAtk, CycHurt, Block, CycDeath;
 
     private Dictionary<string, AudioClip> sfx;
 
@@ -57,10 +57,10 @@ public class SFX_Manager : MonoBehaviour
             { "BigAttack", BigAttack },
 
             // Cyclops
-            { "PH0", PH0 },
-            { "PH1", PH1 },
-            { "PH2", PH2 },
-            { "PH3", PH3 }
+            { "CycStun", CycStun },
+            { "CycAtk", CycAtk },
+            { "CycDeath", CycDeath },
+            { "CycHurt", CycHurt }
         };
     }
 

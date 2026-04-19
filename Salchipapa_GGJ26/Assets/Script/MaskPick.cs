@@ -36,7 +36,7 @@ public class MaskPick : MonoBehaviour
                 case MaskType.Shark:
                     player.hasSharkMask = true;
                 FindObjectOfType<SFX_Manager>()?.Play("Obt_Shark");
-                bgm.PlayBGM("shark");
+                FindObjectOfType<BGM_Manager>()?.PlayBGM("shark");
                 break;
             }
 

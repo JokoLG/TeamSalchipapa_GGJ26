@@ -22,7 +22,7 @@ public class DialogManager : MonoBehaviour
         backgroundImage.color = bgColor;
         dialogueText.color = txtColor;
 
-        playerMovementScript.enabled = false;
+        //playerMovementScript.enabled = false;
         dialogueBox.SetActive(true);
 
         StartCoroutine(TypeText());

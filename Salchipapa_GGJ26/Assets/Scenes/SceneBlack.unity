@@ -440,17 +440,21 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4933191175673747942, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7089908660864786410, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 7688241540250664065, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_fontSize
-      value: 30
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 7688241540250664065, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_fontSizeBase
-      value: 30
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8537799267703879383, guid: 435a0d4d99a2f5a488dec9df5cd69202, type: 3}
       propertyPath: m_IsActive

@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class P_Sword : MonoBehaviour
 {
     public bool isActive = true;
+
+    [Header("References")]
+    [SerializeField] private P_SoundHandler soundPlayer;
 
     [Header("Timing (seconds)")]
     public float delayTime = 0.05f;
@@ -40,6 +42,9 @@ public class P_Sword : MonoBehaviour
 
         hitboxCollider = GetComponent<BoxCollider2D>();
         hitboxCollider.enabled = false;
+
+        if (soundPlayer == null)
+            soundPlayer = GetComponentInParent<P_SoundHandler>();
     }
 
     void Update()
@@ -73,6 +78,9 @@ public class P_Sword : MonoBehaviour
     {
         isStartingUp = true;
         timer = 0f;
+
+        if (soundPlayer != null)
+            soundPlayer.Play("OdySlash");
     }
 
     void BeginActive()
@@ -101,23 +109,19 @@ public class P_Sword : MonoBehaviour
         timer = 0f;
     }
 
-    // ---------------- HIT DETECTION ----------------
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Only hit while the sword is actually active
         if (!isAttacking) return;
 
-        EnemyMovement_Free enemy = other.GetComponent<EnemyMovement_Free>();
-        if (enemy != null) enemy.HitSword(swordKnockback, playerFacing);
-
         EneCom ene = other.GetComponent<EneCom>();
-        if (ene != null) ene.HitSword(swordKnockback, playerFacing);
+        if (ene == null) return;
+
+        if (ene.IsStunnable)
+            ene.HitStunnedSword(swordKnockback, playerFacing);
+        else
+            ene.HitSword(swordKnockback, playerFacing);
     }
 
-    // ---------------- EXTERNAL SETTERS ----------------
-
-    // Call this from your player movement when facing changes
     public void SetFacing(FacingDirection dir)
     {
         playerFacing = dir;

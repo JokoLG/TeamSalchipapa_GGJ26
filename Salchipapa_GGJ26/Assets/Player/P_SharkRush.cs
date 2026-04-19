@@ -132,6 +132,12 @@ public class P_SharkRush : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        BossPhase1Health boss = collision.gameObject.GetComponent<BossPhase1Health>();
+        if (boss != null && state != SharkState.Idle)
+        {
+            boss.TakeSwordHit(1);
+        }
+
         Brick brick = collision.gameObject.GetComponent<Brick>();
         if (brick != null && state != SharkState.Idle)
         {

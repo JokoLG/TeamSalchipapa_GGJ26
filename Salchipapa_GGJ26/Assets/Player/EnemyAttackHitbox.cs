@@ -23,6 +23,8 @@ public class EnemyAttackHitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.CompareTag("Player1")) return;
+        
         P_Health player = other.GetComponent<P_Health>();
 
         if (player == null)
