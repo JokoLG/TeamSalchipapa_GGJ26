@@ -9,7 +9,12 @@ public class VideoSceneLoader : MonoBehaviour
 
     void Start()
     {
+        // 👇 ESTO ES LO QUE TE FALTABA
+        videoPlayer.source = VideoSource.Url;
+        videoPlayer.url = Application.streamingAssetsPath + "/Wakeup1.mp4";
+
         videoPlayer.loopPointReached += OnVideoFinished;
+        videoPlayer.Play();
     }
 
     void OnVideoFinished(VideoPlayer vp)
