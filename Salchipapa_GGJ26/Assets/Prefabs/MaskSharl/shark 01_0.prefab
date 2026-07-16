@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4482019077888641070}
   - component: {fileID: 5140469440346732730}
   - component: {fileID: 6822149656037135860}
+  - component: {fileID: 1870829750137104824}
   m_Layer: 0
   m_Name: shark 01_0
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   sfx: {fileID: 0}
+  bgm: {fileID: 0}
 --- !u!61 &6822149656037135860
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,3 +174,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.5582538, y: 3.3094025}
   m_EdgeRadius: 0
+--- !u!114 &1870829750137104824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3738816335754416726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90928b46a4872f74098bf3b8884e92b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: "\xA1Para el \xFAltimo acto! \xA1Cerrando esta tr\xE1gica obra de teatro!
+    \xA1Ante su presencia, no hay amor que florezca! \xA1\xA1Con todas sus fuerzas,
+    quiero palmas para\u2026El Shark!!"
+  dialogueManager: {fileID: 0}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  textColor: {r: 1, g: 1, b: 1, a: 1}

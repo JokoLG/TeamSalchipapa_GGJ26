@@ -8,6 +8,7 @@ public class DialogManager : MonoBehaviour
     public GameObject dialogueBox;
     public TextMeshProUGUI dialogueText;
     public MonoBehaviour playerMovementScript;
+    public MonoBehaviour playersound;
     public Image backgroundImage; 
     public float typingSpeed = 0.05f;
 
@@ -22,7 +23,9 @@ public class DialogManager : MonoBehaviour
         backgroundImage.color = bgColor;
         dialogueText.color = txtColor;
 
-        //playerMovementScript.enabled = false;
+        playerMovementScript.GetComponent<P_Movement>().isMoving = false;
+        playersound.GetComponent<P_SoundHandler>().StopLoop();
+        playerMovementScript.enabled = false;
         dialogueBox.SetActive(true);
 
         StartCoroutine(TypeText());

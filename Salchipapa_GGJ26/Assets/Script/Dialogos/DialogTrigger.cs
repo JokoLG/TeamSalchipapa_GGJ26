@@ -17,6 +17,7 @@ public class DialogTrigger : MonoBehaviour
         if (hasTriggered) return;
 
         hasTriggered = true;
+        dialogueManager = FindObjectOfType<DialogManager>();
         dialogueManager.StartDialogue(message, backgroundColor, textColor);
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class P_AnimatorController : MonoBehaviour
@@ -6,6 +7,11 @@ public class P_AnimatorController : MonoBehaviour
     [SerializeField] private P_Movement movementScript;
     [SerializeField] private Animator animator;
     [SerializeField] private P_SharkRush sharkRush;
+
+    [Header("Visual Effects")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float flashInterval = 0.08f;
+    [SerializeField] private Color flashColor = Color.red;
 
     [Header("Override Controllers")]
     [SerializeField] private AnimatorOverrideController baseOverride;
@@ -33,6 +39,9 @@ public class P_AnimatorController : MonoBehaviour
     private bool manualStateLock = false;
     private string lockedState = "";
 
+    private Coroutine flashCoroutine;
+    private Color originalColor = Color.white;
+
     void Awake()
     {
         if (animator == null)
@@ -46,6 +55,15 @@ public class P_AnimatorController : MonoBehaviour
 
         if (sharkRush == null)
             sharkRush = GetComponentInParent<P_SharkRush>();
+
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+            originalColor = spriteRenderer.color;
     }
 
     void Update()
@@ -197,6 +215,11 @@ public class P_AnimatorController : MonoBehaviour
         lockedState = hurtState;
         currentState = "";
         PlayState(hurtState);
+
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(DamageFlash());
     }
 
     public void StopManualState()
@@ -204,5 +227,31 @@ public class P_AnimatorController : MonoBehaviour
         manualStateLock = false;
         lockedState = "";
         currentState = "";
+
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        if (spriteRenderer != null)
+            spriteRenderer.color = originalColor;
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        if (spriteRenderer == null)
+            yield break;
+
+        while (manualStateLock)
+        {
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashInterval);
+
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(flashInterval);
+        }
+
+        spriteRenderer.color = originalColor;
     }
 }
